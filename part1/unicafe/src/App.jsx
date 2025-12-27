@@ -6,10 +6,10 @@ const Button = ({onClick, text}) => {
   )
 }
 
-const StatisticLine = ({text, value}) => {
+const StatisticLine = ({text, value, postfix}) => {
   return (
     <>
-      <p>{text} {value}</p>
+      <p>{text} {value} {postfix}</p>
     </>
   )
 }
@@ -27,7 +27,7 @@ const Statistics = ({good, neutral, bad}) => {
         <StatisticLine text="bad" value={bad} />
         <StatisticLine text="all" value={all} />
         <StatisticLine text="average" value={average} />
-        <StatisticLine text="positive" value={positive} />
+        <StatisticLine text="positive" value={positive} postfix='%' />
       </div>
     )
   } else {
