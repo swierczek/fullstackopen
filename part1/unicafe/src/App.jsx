@@ -9,26 +9,31 @@ const Button = ({onClick, text}) => {
 const StatisticLine = ({text, value, postfix}) => {
   return (
     <>
-      <p>{text} {value} {postfix}</p>
+      <tr>
+        <td>{text}</td>
+        <td>{value} {postfix}</td>
+      </tr>
     </>
   )
 }
 
 const Statistics = ({good, neutral, bad}) => {
   const all = good + neutral + bad;
-  const average = (good - bad) / all;
-  const positive = (good / all) * 100;
+  const average = ((good - bad) / all).toPrecision(1);
+  const positive = ((good / all)).toPrecision(3) * 100;
 
   if (all > 0) {
     return(
-      <div>
-        <StatisticLine text="good" value={good} />
-        <StatisticLine text="neutral" value={neutral} />
-        <StatisticLine text="bad" value={bad} />
-        <StatisticLine text="all" value={all} />
-        <StatisticLine text="average" value={average} />
-        <StatisticLine text="positive" value={positive} postfix='%' />
-      </div>
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive" value={positive} postfix='%' />
+        </tbody>
+      </table>
     )
   } else {
     return (
