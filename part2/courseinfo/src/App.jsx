@@ -9,7 +9,7 @@ const Course = ({course}) => {
         )
       })}
 
-      <Footer course={course} />
+      <Footer parts={course.parts} />
     </>
   )
 }
@@ -26,14 +26,13 @@ const Content = ({id, text, exercises}) => {
   )
 }
 
-const Footer = ({course}) => {
-  let sum = 0;
-  course.parts.map(part => {
-    return sum += part.exercises;
-  })
+const Footer = ({parts}) => {
+  const total = Object.keys(parts).reduce((previous, key) => {
+    return previous + parts[key].exercises;
+  }, 0)
 
   return (
-    <p><b>total of {sum} exercises</b></p>
+    <p><b>total of {total} exercises</b></p>
   )
 }
 
