@@ -1,40 +1,4 @@
-const Course = ({course}) => {
-  return (
-    <>
-      <Header text={course.name} />
-
-      {course.parts.map(part => {
-        return (
-          <Content key={part.id} text={part.name} exercises={part.exercises} />
-        )
-      })}
-
-      <Footer parts={course.parts} />
-    </>
-  )
-}
-
-const Header = ({text}) => {
-  return (
-    <h2>{text}</h2>
-  )
-}
-
-const Content = ({id, text, exercises}) => {
-  return (
-    <p>{text} {exercises}</p>
-  )
-}
-
-const Footer = ({parts}) => {
-  const total = Object.keys(parts).reduce((previous, key) => {
-    return previous + parts[key].exercises;
-  }, 0)
-
-  return (
-    <p><b>total of {total} exercises</b></p>
-  )
-}
+import Course from './components/Course'
 
 const App = () => {
   const courses = [
