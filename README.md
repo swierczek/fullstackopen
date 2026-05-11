@@ -10,6 +10,11 @@ Start specific server:
 npm run dev
 ```
 
+JSON server:
+```
+npx json-server --port 3001 db.json
+```
+
 # Various tips to remember
 
 - Components must return a single child, either `<div>...</div>` or `<>...</>`.
