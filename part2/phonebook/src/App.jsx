@@ -22,18 +22,22 @@ const App = () => {
   const addNewName = (event) => {
     event.preventDefault()
 
+    const newPerson = {name: newName, number: newNumber}
     const names = persons.map(person => person.name);
 
     if (names.indexOf(newName) === -1) {
-      let newPerson = {name: newName, number: newNumber}
+
       personService.create(newPerson)
 
       setPersons(persons.concat(newPerson))
 
       setNewName('')
       setNewNumber('');
-    } else {
-      alert(`${newName} is already added to phonebook`)
+    } else if (confirm(`${newPerson.name} is already added to the phonebook. Would you like to replace the old number with the new one?`)) {
+      const person = persons.filter(person => person.name == newName)[0]
+
+      personService.update(person.id, newPerson);
+      setPersons(persons.map(p => p.id === person.id ? newPerson : p))
     }
   }
 
