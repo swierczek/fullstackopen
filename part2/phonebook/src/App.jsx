@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
+import personService from './services/person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import personService from './services/person'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('');
+  const [message, setMessage] = useState(null)
 
   // get results from the database
   useEffect(() => {
@@ -29,6 +31,11 @@ const App = () => {
 
       personService.create(newPerson)
 
+      setMessage(`Added ${newPerson.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
+
       setPersons(persons.concat(newPerson))
 
       setNewName('')
@@ -37,6 +44,12 @@ const App = () => {
       const person = persons.filter(person => person.name == newName)[0]
 
       personService.update(person.id, newPerson);
+
+      setMessage(`Updated ${newPerson.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 3000)
+
       setPersons(persons.map(p => p.id === person.id ? newPerson : p))
     }
   }
@@ -63,6 +76,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <Filter onChange={handleFilter} />
 
       <h3>Add a new</h3>
