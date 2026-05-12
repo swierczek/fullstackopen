@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('');
   const [message, setMessage] = useState(null)
+  const [messageStyle, setMessageStyle] = useState(null)
 
   // get results from the database
   useEffect(() => {
@@ -32,6 +33,7 @@ const App = () => {
       personService.create(newPerson)
 
       setMessage(`Added ${newPerson.name}`)
+      setMessageStyle('success')
       setTimeout(() => {
         setMessage(null)
       }, 3000)
@@ -46,6 +48,7 @@ const App = () => {
       personService.update(person.id, newPerson);
 
       setMessage(`Updated ${newPerson.name}`)
+      setMessageStyle('success')
       setTimeout(() => {
         setMessage(null)
       }, 3000)
@@ -68,7 +71,23 @@ const App = () => {
 
   const deletePerson = person => {
     if (confirm(`Delete ${person.name}?`)) {
-      personService.remove(person.id);
+      personService
+        .remove(person.id)
+        .then(() => {
+          setMessage(`Information for ${person.name} has been removed`)
+          setMessageStyle('success')
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
+        })
+        .catch(error => {
+          setMessage(`Information for ${person.name} has already been removed`)
+          setMessageStyle('error')
+          setTimeout(() => {
+            setMessage(null)
+          }, 3000)
+        })
+
       setPersons(persons.filter(p => p.id !== person.id))
     }
   }
@@ -76,7 +95,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} />
+      <Notification message={message} messageStyle={messageStyle} />
       <Filter onChange={handleFilter} />
 
       <h3>Add a new</h3>
