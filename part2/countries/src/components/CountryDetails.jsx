@@ -6,6 +6,10 @@ const CountryDetails = ({country, countryService}) => {
   const [area, setArea] = useState(null)
   const [languages, setLanguages] = useState({})
   const [flag, setFlag] = useState(null)
+  const [lat, setLat] = useState(null)
+  const [long, setLong] = useState(null)
+  const [wind, setWind] = useState(null)
+  const [temp, setTemp] = useState(null)
 
   useEffect(() => {
     countryService
@@ -17,6 +21,20 @@ const CountryDetails = ({country, countryService}) => {
         setArea(countryData.area)
         setLanguages(countryData.languages)
         setFlag(countryData.flags.png)
+        setLat(countryData.latlng[0])
+        setLong(countryData.latlng[1])
+
+        console.log('lat', countryData.latlng[0]);
+        console.log('lng', countryData.latlng[1]);
+
+        countryService
+          .getWeather(countryData.latlng[0], countryData.latlng[1])
+          .then(weatherData => {
+            console.log('weatherData', weatherData);
+
+            setWind(Math.max(...weatherData.hourly.wind_speed_10m))
+            setTemp(Math.max(...weatherData.hourly.temperature_2m))
+          })
       })
   }, [])
 
@@ -34,6 +52,12 @@ const CountryDetails = ({country, countryService}) => {
         )}
       </ul>
       <img src={flag} />
+
+      <h2>Weather</h2>
+      <p>
+        Max temperature: {temp}<br />
+        Max wind: {wind}
+      </p>
     </>
   )
 }
