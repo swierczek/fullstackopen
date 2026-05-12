@@ -1,32 +1,24 @@
 import { useState, useEffect } from 'react'
 
-const Country = ({list, countryService}) => {
+const CountryDetails = ({country, countryService}) => {
   const [countryName, setCountryName] = useState(null)
   const [capital, setCapital] = useState(null)
   const [area, setArea] = useState(null)
   const [languages, setLanguages] = useState({})
   const [flag, setFlag] = useState(null)
 
-  const countryFound = list.length === 1
-
   useEffect(() => {
-    if (countryFound) {
-      countryService
-        .get(list[0])
-        .then(countryData => {
-          console.log('countryData', countryData);
-          setCountryName(countryData.name.common)
-          setCapital(countryData.capital[0])
-          setArea(countryData.area)
-          setLanguages(countryData.languages)
-          setFlag(countryData.flags.png)
-        })
-    }
-  }, [list, countryService])
-
-  if (!countryFound) {
-    return null
-  }
+    countryService
+      .get(country)
+      .then(countryData => {
+        console.log('countryData', countryData);
+        setCountryName(countryData.name.common)
+        setCapital(countryData.capital[0])
+        setArea(countryData.area)
+        setLanguages(countryData.languages)
+        setFlag(countryData.flags.png)
+      })
+  }, [])
 
   return (
     <>
@@ -46,4 +38,4 @@ const Country = ({list, countryService}) => {
   )
 }
 
-export default Country
+export default CountryDetails
