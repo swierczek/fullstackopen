@@ -47,6 +47,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 
 ```
 
+# Building/deploying to hosted env
+
+```
+cd part2/notes
+npm run build
+cp -r dist ../../part3/express
+```
+
 # Useful links
 
 - https://fullstackopen.com/en/
