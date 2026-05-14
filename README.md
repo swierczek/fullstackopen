@@ -47,12 +47,18 @@ ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 
 ```
 
-# Building/deploying to hosted env
+# Building backend and frontend together
 
 ```
-cd part2/notes
-npm run build
-cp -r dist ../../part3/express
+cd part3/phonebook
+npm run build:ui
+npm run dev
+```
+
+# Deploying
+
+```
+npm run deploy:full
 ```
 
 # Useful links
@@ -61,3 +67,13 @@ cp -r dist ../../part3/express
 - http://localhost:5173/?
 - https://studies.cs.helsinki.fi/stats/courses/fullstackopen/submissions
 - https://github.com/swierczek/fullstackopen
+
+# Hosted environments
+
+## Notes
+- https://fullstackopen-lfw7.onrender.com/
+- https://fullstackopen-lfw7.onrender.com/api/notes
+
+## Phonebook
+- https://fullstackopen-phonebook-1ic3.onrender.com/
+- https://fullstackopen-phonebook-1ic3.onrender.com/api/persons
