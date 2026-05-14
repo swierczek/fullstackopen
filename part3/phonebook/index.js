@@ -3,9 +3,7 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
-// app.use(morgan('tiny'))
 app.use(morgan(function (tokens, req, res) {
-  // console.log(req.method);
   return [
     tokens.method(req, res),
     tokens.url(req, res),
